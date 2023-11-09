@@ -1,0 +1,340 @@
+//"Cuadro que contine la lista de to do"
+const taskManager = document.getElementById("taskManager")
+taskManager.classList.add("taskManager")
+
+//Primer cuadro vertical
+const toDoList = document.createElement("div")
+toDoList.classList.add("toDoList")
+taskManager.appendChild(toDoList)
+
+//"espacio para colocar nuevas tareas"
+const addTask = document.createElement("div")
+addTask.classList.add("addTask")
+toDoList.appendChild(addTask)
+
+// Crear un campo de texto para ingresar la tarea y un botón para publicarla
+const inputTask = document.createElement("input");
+inputTask.setAttribute("type", "text");
+inputTask.setAttribute("placeholder", "Ingrese la tarea");
+inputTask.classList.add("inputTask")
+addTask.appendChild(inputTask);
+
+const div = document.createElement("div")
+div.classList.add("div")
+addTask.appendChild(div)
+
+const publishButton = document.createElement("button");
+publishButton.textContent = "Publicar";
+publishButton.classList.add("publishButton")
+div.appendChild(publishButton);
+
+// Evento para crear una nueva tarea al presionar el botón "Publicar"
+publishButton.addEventListener('click', function() {
+  const taskText = inputTask.value;
+  if (taskText.trim() !== "") {
+    const nuevaTarea = new Task(taskText);
+    guardarTarea(nuevaTarea);
+    mostrarTarea(nuevaTarea);
+    inputTask.value = ''; // Limpiar el campo de texto después de publicar
+  } else {
+    alert("Por favor ingrese una tarea válida");
+  }
+});
+
+//Lista de tareas por hacer
+const toDo = document.createElement("div")
+toDo.classList.add("toDo")
+toDoList.appendChild(toDo)
+
+const toDoTittle = document.createElement("p")
+toDoTittle.innerText = "To do"
+toDoTittle.classList.add("toDoTittle")
+toDo.appendChild(toDoTittle)
+
+const toDoTasks = document.createElement("div")
+toDo.appendChild(toDoTasks)
+
+// Lista de tareas que se estan haciendo
+const doing = document.createElement("div")
+doing.classList.add("doing")
+taskManager.appendChild(doing)
+
+//Lista de tareas completadas
+const done = document.createElement("div")
+done.classList.add("done")
+taskManager.appendChild(done)
+
+class Task {
+    constructor(title, state) {
+        this.title = title;
+        this.state = state;
+    }
+}
+
+// Crear el contenedor principal
+const taskManager = document.createElement("div");
+taskManager.classList.add("taskManager");
+
+// Crear la lista de tareas por hacer
+const toDoList = document.createElement("div");
+toDoList.classList.add("toDoList");
+
+// Crear el espacio para agregar nuevas tareas
+const addTask = document.createElement("div");
+addTask.classList.add("addTask");
+
+// Crear el campo de texto y botón para publicar
+const inputTask = document.createElement("input");
+inputTask.setAttribute("type", "text");
+inputTask.setAttribute("placeholder", "Ingrese la tarea");
+inputTask.classList.add("inputTask");
+
+const div = document.createElement("div");
+div.classList.add("div");
+
+const publishButton = document.createElement("button");
+publishButton.textContent = "Publicar";
+publishButton.classList.add("publishButton");
+
+div.appendChild(publishButton);
+addTask.appendChild(inputTask);
+addTask.appendChild(div);
+toDoList.appendChild(addTask);
+
+// Crear la lista de tareas por hacer
+const toDo = document.createElement("div");
+toDo.classList.add("toDo");
+
+const toDoTittle = document.createElement("p");
+toDoTittle.innerText = "To do";
+toDoTittle.classList.add("toDoTittle");
+
+const toDoTasks = document.createElement("div");
+toDoTasks.classList.add("toDoTasks");
+
+toDo.appendChild(toDoTittle);
+toDo.appendChild(toDoTasks);
+
+// Agregar todo al contenedor principal
+taskManager.appendChild(toDoList);
+taskManager.appendChild(toDo);
+
+// Agregar el contenedor principal al body del documento
+document.body.appendChild(taskManager);
+
+// Resto de tu lógica y manipulación de eventos para las tareas...
+function createTaskCard(task, index, taskList) {
+    const taskCard = document.createElement("div");
+    taskCard.classList.add("task-card");
+
+    const closeButton = document.createElement("button");
+    closeButton.classList.add("close-task");
+    closeButton.dataset.index = index;
+    closeButton.textContent = "X";
+
+    const taskTitle = document.createElement("div");
+    taskTitle.classList.add("task__car--title");
+    taskTitle.textContent = task.title;
+
+    const controls = document.createElement("div");
+    controls.classList.add("task__car--controls");
+
+    const moveDownButton = document.createElement("button");
+    moveDownButton.classList.add("move-down");
+    moveDownButton.dataset.index = index;
+    moveDownButton.textContent = "↓";
+
+    const moveUpButton = document.createElement("button");
+    moveUpButton.classList.add("move-up");
+    moveUpButton.dataset.index = index;
+    moveUpButton.textContent = "↑";
+
+    controls.appendChild(moveDownButton);
+    controls.appendChild(moveUpButton);
+
+    taskCard.appendChild(closeButton);
+    taskCard.appendChild(taskTitle);
+    taskCard.appendChild(controls);
+
+    taskList.appendChild(taskCard);
+}
+
+// Evento para agregar una nueva tarea
+const addTaskButton = document.getElementById("publishButton");
+addTaskButton.addEventListener("click", () => {
+    const taskInput = document.getElementById("task-input");
+    const taskTitle = taskInput.value.trim();
+
+    if (taskTitle !== "") {
+        const newTask = new Task(taskTitle, "To Do");
+        tasks.push(newTask);
+        saveTasks();
+        renderTasks();
+    } else {
+        alert("Por favor ingrese una tarea válida");
+    }
+});
+
+
+// class Task {
+//     constructor(title) {
+//         this.title = title;
+//         this.state = "To Do";
+//     }
+// }
+
+// const taskManager = document.getElementById("taskManager");
+// taskManager.classList.add("taskManager");
+
+// function createTaskSection(title, className) {
+//     const section = document.createElement("div");
+//     section.classList.add(className);
+
+//     const titleElement = document.createElement("p");
+//     titleElement.innerText = title;
+//     titleElement.classList.add(`${className}Title`);
+//     section.appendChild(titleElement);
+
+//     const taskList = document.createElement("div");
+//     taskList.classList.add(`${className}Tasks`);
+//     section.appendChild(taskList);
+//     taskManager.appendChild(section);
+
+//     return taskList;
+// }
+
+// function createTaskCard(task, index, taskList) {
+//     const taskCard = document.createElement("div");
+//     taskCard.classList.add("task-card");
+//     taskCard.innerHTML = `
+//         <button class="close-task" data-index="${index}">X</button>
+//         <div class="task__car--title">${task.title}</div>
+//         <div class="task__car--controls">
+//             <button class="move-down" data-index="${index}"> ↓</button>
+//             <button class="move-up" data-index="${index}">↑</button>
+//         </div>
+//     `;
+
+//     taskList.appendChild(taskCard);
+// }
+
+// function renderTasks(tasks) {
+//     const toDoTasks = document.querySelector('.toDoTasks');
+//     const doingTasks = document.querySelector('.doingTasks');
+//     const doneTasks = document.querySelector('.doneTasks');
+
+//     toDoTasks.innerHTML = "";
+//     doingTasks.innerHTML = "";
+//     doneTasks.innerHTML = "";
+
+//     tasks.forEach((task, index) => {
+//         let taskList;
+//         if (task.state === "To Do") {
+//             taskList = toDoTasks;
+//         } else if (task.state === "Doing") {
+//             taskList = doingTasks;
+//         } else if (task.state === "Done") {
+//             taskList = doneTasks;
+//         }
+//         createTaskCard(task, index, taskList);
+//     });
+// }
+
+// const tasks = [];
+
+// const toDoTasks = createTaskSection("To Do", "toDo");
+// const doingTasks = createTaskSection("Doing", "doing");
+// const doneTasks = createTaskSection("Done", "done");
+
+// const addTaskButton = document.createElement("button");
+// addTaskButton.textContent = "Añadir Tarea";
+// addTaskButton.classList.add("add-task");
+// taskManager.appendChild(addTaskButton);
+
+// addTaskButton.addEventListener("click", () => {
+//     const taskInput = document.createElement("input");
+//     taskInput.setAttribute("type", "text");
+//     taskInput.setAttribute("placeholder", "Ingrese la tarea");
+//     taskInput.classList.add("inputTask");
+
+//     const taskText = prompt("Ingrese la tarea:");
+//     if (taskText && taskText.trim() !== "") {
+//         const newTask = new Task(taskText);
+//         tasks.push(newTask);
+//         renderTasks(tasks);
+//     } else {
+//         alert("Por favor ingrese una tarea válida");
+//     }
+// });
+
+
+
+//"Cuadro que contine la lista de to do"
+const taskManager = document.getElementById("taskManager")
+taskManager.classList.add("taskManager")
+
+//Primer cuadro vertical
+const toDoList = document.createElement("div")
+toDoList.classList.add("toDoList")
+taskManager.appendChild(toDoList)
+
+//"espacio para colocar nuevas tareas"
+const addTask = document.createElement("div")
+addTask.classList.add("addTask")
+toDoList.appendChild(addTask)
+
+// Crear un campo de texto para ingresar la tarea y un botón para publicarla
+const inputTask = document.createElement("input");
+inputTask.setAttribute("type", "text");
+inputTask.setAttribute("placeholder", "Ingrese la tarea");
+inputTask.classList.add("inputTask")
+addTask.appendChild(inputTask);
+
+const div = document.createElement("div")
+div.classList.add("div")
+addTask.appendChild(div)
+
+const publishButton = document.createElement("button");
+publishButton.textContent = "Publicar";
+publishButton.classList.add("publishButton")
+div.appendChild(publishButton);
+
+
+//Lista de tareas por hacer
+const toDo = document.createElement("div")
+toDo.classList.add("toDo")
+toDoList.appendChild(toDo)
+
+const toDoTittle = document.createElement("p")
+toDoTittle.innerText = "To do"
+toDoTittle.classList.add("toDoTittle")
+toDo.appendChild(toDoTittle)
+
+const toDoTasks = document.createElement("div")
+toDo.appendChild(toDoTasks)
+
+// Lista de tareas que se estan haciendo
+const doing = document.createElement("div")
+doing.classList.add("doing")
+taskManager.appendChild(doing)
+
+const doingTittle = document.createElement("p")
+doingTittle.innerText = "To do"
+doingTittle.classList.add("toDoTittle")
+doing.appendChild(doingTittle)
+
+const doingTasks = document.createElement("div")
+doing.appendChild(doingTasks)
+
+//Lista de tareas completadas
+const done = document.createElement("div")
+done.classList.add("done")
+taskManager.appendChild(done)
+
+const doneTittle = document.createElement("p")
+doneTittle.innerText = "To do"
+doneTittle.classList.add("toDoTittle")
+done.appendChild(doneTittle)
+
+const doneTasks = document.createElement("div")
+done.appendChild(doneTasks)
